@@ -53,8 +53,8 @@ function App() {
               <div className="card-text mt-3 col-auto">
                 {success && <Alert message="Código válido" type="success" />}
                 {danger && <Alert message="Código no válido" type="danger" />}
-                {danger && message}
               </div>
+              <iframe id="conso" width="100%" height="300"></iframe>
             </div>
           </div>
         </div>

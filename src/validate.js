@@ -1,6 +1,8 @@
 export const validate = async (input) => {
   const automaton = new PDA();
   let key = '';
+  const consoleFrame = document.getElementById('conso');
+  consoleFrame.src = '';
 
   if (input[0] === '_') {
     key = 'V';
@@ -52,12 +54,14 @@ class PDA {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       console.log(this.stack);
+      const consoleFrame = document.getElementById('conso');
+      consoleFrame.contentDocument.write(this.stack + '<br>');
       const stackTop = this.topOfStack();
       const inputSymbol = input[pointer];
 
       if (stackTop === '$' && inputSymbol === undefined) {
         console.log('Cadena aceptada');
-        return {success: true, msg: 'Codigo valido'};
+        return { success: true, msg: 'Codigo valido' };
       }
       if (stackTop === ':::') {
         this.popFromStack();
@@ -79,7 +83,7 @@ class PDA {
           this.pushToStack(production);
         } else {
           console.log('Error');
-          break;
+          return { success: false, msg: 'Codigo invalido' };
         }
       }
     }
