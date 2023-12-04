@@ -6,7 +6,9 @@ export const validate = async (input) => {
 
   if (input[0] === '_') {
     key = 'V';
-  } else if (input[0] === 'w') {
+  } else if (input[0] === 'w' && input[2] === 'e') {
+    key = 'WN';
+  } else if (input[0] === 'w' && input[1] === 'h') {
     key = 'CW';
   } else if (input[0] === 'c') {
     key = 'CY';
@@ -126,7 +128,13 @@ class PDA {
       case 'CM':
         return ['"'];
       case 'B':
-        return terminal === 't' ? ['true'] : ['false'];
+        if (terminal === 't') {
+          return ['true'];
+        } else if (terminal === 'f') {
+          return ['false'];
+        } else {
+          return null;
+        }
       case 'D':
         return /[0-9]/.test(terminal) ? [terminal] : null;
       case 'RD':
@@ -372,53 +380,3 @@ class PDA {
     }
   }
 }
-
-// Ejemplo de uso
-// const automaton = new PDA();
-// let inputString = 'while (true) {instrucciones}';
-
-// automaton.pushToStack(['CW']);
-
-// automaton.process(inputString);
-
-// inputString = '_nombre : string = "juan";';
-
-// automaton.pushToStack(['V']);
-
-// automaton.process(inputString);
-
-// inputString = 'cycle (i: int = 0;i > n; i++) {instrucciones}';
-
-// automaton.pushToStack(['CY']);
-
-// automaton.process(inputString);
-
-// inputString = 'when (numbereven > 2) {instrucciones} so {instrucciones}';
-
-// automaton.pushToStack(['WN']);
-
-// automaton.process(inputString);
-
-// inputString = 'return true;';
-
-// automaton.pushToStack(['RN']);
-
-// automaton.process(inputString);
-
-// inputString = 'fn increment (number: int) boolean { instrucciones return true;}';
-
-// automaton.pushToStack(['FN']);
-
-// automaton.process(inputString);
-
-// inputString = 'fn increment (number: int) boolean { instrucciones return true;}';
-
-// automaton.pushToStack(['FN']);
-
-// automaton.process(inputString);
-
-// inputString = 'run () {instrucciones}';
-
-// automaton.pushToStack(['M']);
-
-// automaton.process(inputString);
